@@ -4,6 +4,8 @@ import React, {useState} from 'react';
 const BookCard = ({id, title, author, description, onRemove}) => {
     //local state to toggle read more / show less
     const [readMore, setReadMore] = useState(false);
+    const safeDescription = description || "No description available"; // Fallback for missing description
+    // render the bookCard
 
     return (
         <article className="book-card">
@@ -12,8 +14,8 @@ const BookCard = ({id, title, author, description, onRemove}) => {
 
 
             <p>
-                {readMore ? description : `${description.substring(0, 80)}...`}
-                <button> onClick={() => setReadMore(!readMore)}>
+                {(readMore ? safeDescription : safeDescription.slice(0, 80)+"...")}
+                <button onClick={() => setReadMore(!readMore)}>
                     {readMore ? 'Show Less' : 'Read More'}
                 </button>
             </p>

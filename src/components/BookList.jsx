@@ -19,12 +19,13 @@ const fetchBooks = async () => {
         const trimmed = data.results.map((book) => ({
             id: book.id,
             title: book.title,
-            author: book.authors[0]?.name || "Unknown",
+            author: book.authors[0].name || "Unknown",
             description: `Download count: #${book.download_count}. Subjects ${book.subjects.slice(0, 3).join(", ")}`,
         }));
         setBooks(trimmed); //save data to global state
         setLoading(false); //set loading to false
     } catch (error) {
+        console.error("Error fetching books:", error);
         setError(true); //if fetch fails it shows error
         setLoading(false); //set loading to false   
     }
