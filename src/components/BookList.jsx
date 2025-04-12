@@ -14,7 +14,8 @@ const BookList = ({books, setBooks, onRemove}) => {
 const fetchBooks = async () => {
     try {
         const res = await fetch("https://gutendex.com/books/");
-        // maps api data to only the required firles
+        // maps api data to only the required fields
+        const data = await res.json();
         const trimmed = data.results.map((book) => ({
             id: book.id,
             title: book.title,
@@ -23,12 +24,10 @@ const fetchBooks = async () => {
         }));
         setBooks(trimmed); //save data to global state
         setLoading(false); //set loading to false
-    }
-catch (error) {
+    } catch (error) {
         setError(true); //if fetch fails it shows error
         setLoading(false); //set loading to false   
     }
-}
 };
 
 // Run fetchBooks once after the component mounts
@@ -68,5 +67,5 @@ if (books.length === 0) {
         </section>
     );
 };
-
+};
 export default BookList;
